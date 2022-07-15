@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.testoc.apitest.model.Hospital;
-import com.testoc.apitest.service.HospitalService;
+import com.testoc.apitest.model.Patient;
+import com.testoc.apitest.service.PatientService;
 
 @RestController
 public class HospitalController {
@@ -44,6 +45,16 @@ public class HospitalController {
     } else {
       return null;
     }
+  }
+
+  @GetMapping("/hospital/reccomand_hospital")
+  public Hospital getHospital() {
+    @RequestParam(required = true, defaultValue = "", value="gpsPosition") String gpsPosition
+    @RequestParam(required = true, defaultValue = "", value="patientId") String patitentId
+
+
+
+
   }
 
   /**
