@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.testoc.apitest.model.Hospital;
 import com.testoc.apitest.model.Patient;
 import com.testoc.apitest.service.PatientService;
+import com.testoc.apitest.service.HospitalService;
 
 @RestController
 public class HospitalController {
