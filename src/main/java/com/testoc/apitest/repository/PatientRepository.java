@@ -3,9 +3,9 @@ package com.testoc.apitest.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.testoc.apitest.model.Department;
+import com.testoc.apitest.model.Patient;
 
 @Repository
-public interface DepartmentRepository extends CrudRepository<Department, Long>{
+public interface PatientRepository extends CrudRepository<Patient, Long>{
 
 }
