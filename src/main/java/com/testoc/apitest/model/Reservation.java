@@ -18,11 +18,14 @@ public class Department {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @BedId
-  private Long BedId;
 
-  @PatientId
-  private Long PatientId;
+  @ManyToOne
+  @JoinColumn(name="bed_id")
+  private Bed bed;
+
+  @ManyToOne
+  @JoinColumn(name="patient_id")
+  private Patient patient;
 
   @StartDate
   private Date StartDate;

@@ -24,4 +24,7 @@ public class Patient {
   @Column(name="last_name")
   private String lastName;
 
+  @OneToMany(mappedBy = "reservation")
+  private List<Reservation> reservations;
+
 }

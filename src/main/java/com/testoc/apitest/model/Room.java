@@ -18,6 +18,10 @@ public class Room {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @DepartmentId
-  private Long DepartmentId;
+  @ManyToOne
+  @JoinColumn(name="department_id")
+  private Department department;
+
+  @OneToMany(mappedBy = "bed")
+  private List<Bed> beds;
 }

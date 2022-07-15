@@ -18,6 +18,10 @@ public class Bed {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @RoomId
-  private Long RoomId;
+  @ManyToOne
+  @JoinColumn(name="room_id")
+  private Room room;
+
+  @OneToMany(mappedBy = "reservation")
+  private List<Reservation> reservations;
 }

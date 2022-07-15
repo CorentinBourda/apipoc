@@ -18,10 +18,14 @@ public class Department {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @HospitalId
-  private Long HospitalId;
+  @ManyToOne
+  @JoinColumn(name="hospital_id")
+  private Hospital hospital;
 
   @Type
   private Integer type;
+
+  @OneToMany(mappedBy = "room")
+  private List<Room> rooms;
 
 }
