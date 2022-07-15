@@ -21,9 +21,8 @@ public class ReservationController {
   private ReservationService reservationService;
 
   /**
-   * Create - Add a new employee
-   * @param reservation An object employee
-   * @return The employee object saved
+   * @param reservation
+   * @return
    */
   @PostMapping("/reservation")
   public Reservation createReservation(@RequestBody Reservation reservation) {
