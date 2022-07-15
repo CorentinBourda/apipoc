@@ -11,22 +11,17 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "hospitals")
-public class Hospital {
+@Table(name = "departments")
+public class Department {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name="name")
-  private String Name;
+  @HospitalId
+  private Long HospitalId;
 
-  @Column(name="gps_position")
-  private String gpsPosition;
-
-  @Column(name="mail")
-  private String mail;
-
-  private String password;
+  @Type
+  private Integer type;
 
 }

@@ -11,8 +11,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "hospitals")
-public class Hospital {
+@Table(name = "medical_specialisations")
+public class MedicalSpecialisation {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +20,5 @@ public class Hospital {
 
   @Column(name="name")
   private String Name;
-
-  @Column(name="gps_position")
-  private String gpsPosition;
-
-  @Column(name="mail")
-  private String mail;
-
-  private String password;
 
 }
