@@ -23,7 +23,7 @@ public class HospitalController {
   private HospitalService hospitalService;
 
   @GetMapping("/hospital/reserve_bed/{gps_position}")
-  public Hospital reserve_bed(@PathVariable("gps_position") final Long id, @RequestBody Patient patient){
+  public Reservation reserve_bed(@PathVariable("gps_position") final Long id, @RequestBody Patient patient){
     patient = patientService.savePatient(patient);
 
 
@@ -39,8 +39,10 @@ public class HospitalController {
     HttpURLConnection con = (HttpURLConnection) url.openConnection();
     con.setRequestMethod("GET");
 
+
+
     bed = @Query(
-      "SELECT * FROM BEDS b WHERE DEPARTMENRT_ID IN (SELECT DEPARTMENT)")
+      "SELECT * FROM BEDS b WHERE DEPARTMENRT_ID IN (SELECT * FROM DEPARTMENTS d WHERE d.HOSPITAL_ID = ? AND TYPE = ?)")
 
 
     var reservation = new Reservation();
@@ -49,8 +51,7 @@ public class HospitalController {
     reservation.setStartDate(java.time.LocalTime.now());
     reservation.setStartDate(java.time.LocalTime.now().plusDays(1));
 
-
-    return
+    return reservation
 
   }
 }
