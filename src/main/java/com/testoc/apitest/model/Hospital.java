@@ -27,9 +27,6 @@ public class Hospital {
   @Column(name="mail")
   private String mail;
 
-  @OneToMany(mappedBy = "hospital")
-  private List<Hospital> hospitals;
-
   private String password;
 
 }

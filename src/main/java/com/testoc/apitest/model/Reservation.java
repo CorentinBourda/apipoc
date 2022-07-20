@@ -12,25 +12,11 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "reservations")
-public class Department {
+public class Reservation {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-
-  @ManyToOne
-  @JoinColumn(name="bed_id")
-  private Bed bed;
-
-  @ManyToOne
-  @JoinColumn(name="patient_id")
-  private Patient patient;
-
-  @StartDate
-  private Date StartDate;
-
-  @EndDate
-  private Date EndDate;
 
 }
