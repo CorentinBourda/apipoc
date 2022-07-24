@@ -16,6 +16,15 @@ import com.testoc.apitest.model.Patient;
 import com.testoc.apitest.service.PatientService;
 import com.testoc.apitest.service.HospitalService;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 @RestController
 public class HospitalController {
 
@@ -23,21 +32,25 @@ public class HospitalController {
   private HospitalService hospitalService;
 
   @GetMapping("/hospital/reserve_bed/{gps_position}")
-  public Reservation reserve_bed(@PathVariable("gps_position") final Long id, @RequestBody Patient patient){
+  public Reservation reserve_bed(@RequestBody GpsPosition gps_position, @RequestBody Patient patient){
     patient = patientService.savePatient(patient);
-
-
-    // possible de calculer les iténéraires en 1 seul appel
-    oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g"
 
     hospitals_positions = @Query(
       "SELECT gps_position FROM HOSPITALS h WHERE h.id IN (SELECT * FROM DEPARTMENTS d WHERE d.type = ? AND d.id IN (SELECT DEPARTMENRT_ID  FROM ROOMS r WHERE r.beds.size >= 0 ))");
 
-    mapbox_url = $"https://api.mapbox.com/directions-matrix/{String.join(",", hospitals_positions)}/&access_token={oc_token}/v1/";
+    String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
+    String oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
 
-    URL url = new URL(mapbox_url);
-    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-    con.setRequestMethod("GET");
+    String mapbox_url = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/walking/%s?sources=0&annotations=distance,duration&access_token=%s",gps_positions,oc_token);
+
+    var client = HttpClient.newHttpClient();
+    var request = HttpRequest.newBuilder(
+           URI.create(mapbox_url))
+       .header("accept", "application/json")
+       .build();
+    var response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                         .thenApply(HttpResponse::body)
+                         .join();
 
 
 
@@ -49,9 +62,8 @@ public class HospitalController {
     reservation.setBedId(bed.ID);
     reservation.setPatientId(patient.ID);
     reservation.setStartDate(java.time.LocalTime.now());
-    reservation.setStartDate(java.time.LocalTime.now().plusDays(1));
 
     return reservation
 
-  }
+   }
 }
