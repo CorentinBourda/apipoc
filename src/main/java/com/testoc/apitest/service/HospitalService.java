@@ -24,6 +24,11 @@ public class HospitalService {
     return hospitalRepository.findAll();
   }
 
+  // public Iterable<Hospital> getGps() {
+  //   return hospitalRepository.getHospitalsPositions();
+  // }
+
+
   public void deleteHospital(final Long id) {
     hospitalRepository.deleteById(id);
   }

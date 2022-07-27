@@ -7,6 +7,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Console {
 
   public static void main(String[] args) throws Exception {
@@ -24,6 +27,24 @@ public class Console {
                          .thenApply(HttpResponse::body)
                          .join();
     System.out.println(response);
+
+    var = Pattern.compile("\"durations\":[[(.*)]]");
+    var m = p.matcher(response);
+    System.out.println(m);
+
+    // Logique pour trouver le plus petit nb
+    // int[] numbers = {10, 9, 5, -2};
+
+    // // for each loop
+    // var i = 0;
+    // var min = numbers[0];
+    // for (int number: numbers) {
+    //   if (number <= min) {
+    //     min = number;
+    //   }
+    //   i = i + 1;
+    // }
+    //  System.out.println(min);
   }
 
 }
