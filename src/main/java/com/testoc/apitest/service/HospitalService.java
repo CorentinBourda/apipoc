@@ -24,9 +24,13 @@ public class HospitalService {
     return hospitalRepository.findAll();
   }
 
-  // public Iterable<Hospital> getGps() {
-  //   return hospitalRepository.getHospitalsPositions();
-  // }
+  public Iterable<Hospital> getGps(String department_type) {
+    return hospitalRepository.getHospitalsPositions(department_type);
+  }
+
+  public Iterable<Hospital> findByGpsPosition(String gps_position) {
+    return hospitalRepository.whereGpsPosition(gps_position);
+  }
 
 
   public void deleteHospital(final Long id) {

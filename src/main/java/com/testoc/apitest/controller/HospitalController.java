@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.testoc.apitest.model.Hospital;
 import com.testoc.apitest.model.Patient;
 import com.testoc.apitest.model.Reservation;
+import com.testoc.apitest.model.Bed;
+import com.testoc.apitest.model.Department;
 import com.testoc.apitest.service.PatientService;
 import com.testoc.apitest.service.HospitalService;
 import com.testoc.apitest.service.ReservationService;
+import com.testoc.apitest.service.BedService;
+import com.testoc.apitest.service.DepartmentService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +31,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import org.json.JSONObject;
+import org.json.JSONArray;
+
 @RestController
 public class HospitalController {
 
@@ -34,34 +41,50 @@ public class HospitalController {
   private HospitalService hospitalService;
   private PatientService patientService;
   private ReservationService reservationService;
+  private BedService bedService;
+  private DepartmentService departmentService;
 
   @GetMapping("/hospital/reserve_bed/{gps_position}")
   public Reservation reserve_bed(@RequestBody String gps_position, @RequestBody Patient patient){
     patient = patientService.savePatient(patient);
 
-    // Iterable<Hospital>  hospitals_positions = hospitalService.getGps();
-    //  //  WHERE h.id IN (SELECT * FROM DEPARTMENTS d WHERE d.type = ? AND d.id IN (SELECT DEPARTMENRT_ID  FROM ROOMS r WHERE r.beds.size >= 0 ))
-    // System.out.println("coucou");
-    // System.out.println(hospitals_positions);
+    Iterable<Hospital>  hospitals_positions = hospitalService.getGps("radiology");
+     //  WHERE h.id IN (SELECT * FROM DEPARTMENTS d WHERE d.type = ? AND d.id IN (SELECT DEPARTMENRT_ID  FROM ROOMS r WHERE r.beds.size >= 0 ))
+    System.out.println("coucou");
+    System.out.println(hospitals_positions);
 
 
-    // String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
-    // String oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
+    String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
+    String oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
 
-    // String mapbox_url = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/walking/%s?sources=0&annotations=distance,duration&access_token=%s",gps_positions,oc_token);
+    String mapbox_url = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/walking/%s?sources=0&annotations=distance,duration&access_token=%s",gps_positions,oc_token);
 
-    // var client = HttpClient.newHttpClient();
-    // var request = HttpRequest.newBuilder(
-    //        URI.create(mapbox_url))
-    //    .header("accept", "application/json")
-    //    .build();
-    // var response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-    //                      .thenApply(HttpResponse::body)
-    //                      .join();
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder(
+           URI.create(mapbox_url))
+       .header("accept", "application/json")
+       .build();
+    String response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                         .thenApply(HttpResponse::body)
+                         .join();
 
+    // JSONArray distances = new JSONArray(response)["distances"];
 
+    // // for each loop
+    // int i = 0;
+    // int nearest_position = distances[0];
+    // for (int number: distances) {
+    //   if (number <= nearest_position) {
+    //     nearest_position = number;
+    //   }
+    //   i = i + 1;
+    // }
 
-    // Iterable<Bed>  hospitals_positions = hospitalService.getGps();
+    // Hospital nearest_hospital = hospitalService.findByGpsPosition(nearest_position);
+
+    // Department department = departmentService.findByHospitalAndType();
+
+    // Iterable<Bed>  usable_beds = bedService.getBed(department);
 
 
     Reservation reservation = new Reservation();

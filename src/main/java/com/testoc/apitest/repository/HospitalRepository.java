@@ -11,7 +11,18 @@ import com.testoc.apitest.model.Hospital;
 @Repository
 public interface HospitalRepository extends CrudRepository<Hospital, Long>{
 
-  // @Query("SELECT gps_position FROM hospitals")
-  // Iterable<Hospital> getHospitalsPositions();
+  // @Query("SELECT * FROM hospitals")
+  // Iterable<Hospital> getHospitalsPositions(String department_type);
+
+  @Query("select h.gps_position from Hospital h")
+  Iterable<Hospital> getHospitalsPositions(String department_type);
+
+
+  @Query("select h from Hospital h where h.gps_position = ?")
+  Iterable<Hospital> whereGpsPosition(String gps_position);
+
+  // public Iterable<Hospital> getHospitalsPositions(String department_type) {
+  //   return @Query("SELECT * FROM hospitals");
+  // }
 
 }
