@@ -14,12 +14,12 @@ public interface HospitalRepository extends CrudRepository<Hospital, Long>{
   // @Query("SELECT * FROM hospitals")
   // Iterable<Hospital> getHospitalsPositions(String department_type);
 
-  @Query("select h.gps_position from Hospital h")
-  Iterable<Hospital> getHospitalsPositions(String department_type);
+  @Query("SELECT h.gpsPosition FROM Hospital h")
+  Iterable<Hospital> getHospitalsPositions();
 
 
-  @Query("select h from Hospital h where h.gps_position = ?")
-  Iterable<Hospital> whereGpsPosition(String gps_position);
+  @Query("FROM Hospital h WHERE h.gpsPosition = ?1")
+  Iterable<Hospital> whereGpsPosition(String gpsPosition);
 
   // public Iterable<Hospital> getHospitalsPositions(String department_type) {
   //   return @Query("SELECT * FROM hospitals");

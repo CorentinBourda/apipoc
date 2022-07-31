@@ -44,29 +44,31 @@ public class HospitalController {
   private BedService bedService;
   private DepartmentService departmentService;
 
-  @GetMapping("/hospital/reserve_bed/{gps_position}")
-  public Reservation reserve_bed(@RequestBody String gps_position, @RequestBody Patient patient){
-    patient = patientService.savePatient(patient);
+  @GetMapping("/hospital/reserve_bed")
+  public Reservation reserveBed(){
+    // @RequestBody String gps_position, @RequestBody Patient patient
+    // patient = patientService.savePatient(patient);
 
-    Iterable<Hospital>  hospitals_positions = hospitalService.getGps("radiology");
-     //  WHERE h.id IN (SELECT * FROM DEPARTMENTS d WHERE d.type = ? AND d.id IN (SELECT DEPARTMENRT_ID  FROM ROOMS r WHERE r.beds.size >= 0 ))
+    Iterable<Hospital>  hospitals_positions = hospitalService.getGps();
     System.out.println("coucou");
     System.out.println(hospitals_positions);
+    String stringGpsPositions =  String.join(",", hospitals_positions);
+    System.out.println(stringGpsPositions);
 
 
-    String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
-    String oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
+    // String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
+    // String oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
 
-    String mapbox_url = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/walking/%s?sources=0&annotations=distance,duration&access_token=%s",gps_positions,oc_token);
+    // String mapbox_url = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/walking/%s?sources=0&annotations=distance,duration&access_token=%s",gps_positions,oc_token);
 
-    HttpClient client = HttpClient.newHttpClient();
-    HttpRequest request = HttpRequest.newBuilder(
-           URI.create(mapbox_url))
-       .header("accept", "application/json")
-       .build();
-    String response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                         .thenApply(HttpResponse::body)
-                         .join();
+    // HttpClient client = HttpClient.newHttpClient();
+    // HttpRequest request = HttpRequest.newBuilder(
+    //        URI.create(mapbox_url))
+    //    .header("accept", "application/json")
+    //    .build();
+    // String response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+    //                      .thenApply(HttpResponse::body)
+    //                      .join();
 
     // JSONArray distances = new JSONArray(response)["distances"];
 
