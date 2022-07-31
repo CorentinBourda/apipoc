@@ -24,7 +24,7 @@ public class HospitalService {
     return hospitalRepository.findAll();
   }
 
-  public Iterable<Hospital> getGps() {
+  public String[] getGps() {
     return hospitalRepository.getHospitalsPositions();
   }
 

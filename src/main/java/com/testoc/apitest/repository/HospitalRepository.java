@@ -15,7 +15,7 @@ public interface HospitalRepository extends CrudRepository<Hospital, Long>{
   // Iterable<Hospital> getHospitalsPositions(String department_type);
 
   @Query("SELECT h.gpsPosition FROM Hospital h")
-  Iterable<Hospital> getHospitalsPositions();
+  String[] getHospitalsPositions();
 
 
   @Query("FROM Hospital h WHERE h.gpsPosition = ?1")

@@ -49,38 +49,48 @@ public class HospitalController {
     // @RequestBody String gps_position, @RequestBody Patient patient
     // patient = patientService.savePatient(patient);
 
-    Iterable<Hospital>  hospitals_positions = hospitalService.getGps();
+    String[]  hospitalsPositions = hospitalService.getGps();
     System.out.println("coucou");
-    System.out.println(hospitals_positions);
-    String stringGpsPositions =  String.join(",", hospitals_positions);
+    System.out.println(hospitalsPositions);
+    String stringGpsPositions =  String.join(";", hospitalsPositions);
+    // String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
+    System.out.println("coucou2");
     System.out.println(stringGpsPositions);
 
 
-    // String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
-    // String oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
+    String oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
 
-    // String mapbox_url = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/walking/%s?sources=0&annotations=distance,duration&access_token=%s",gps_positions,oc_token);
+    String mapboxUrl = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/walking/%s?sources=0&annotations=distance,duration&access_token=%s",stringGpsPositions,oc_token);
+    System.out.println("coucou3");
+    System.out.println(mapboxUrl);
 
-    // HttpClient client = HttpClient.newHttpClient();
-    // HttpRequest request = HttpRequest.newBuilder(
-    //        URI.create(mapbox_url))
-    //    .header("accept", "application/json")
-    //    .build();
-    // String response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-    //                      .thenApply(HttpResponse::body)
-    //                      .join();
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder(
+           URI.create(mapboxUrl))
+       .header("accept", "application/json")
+       .build();
+    String response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                         .thenApply(HttpResponse::body)
+                         .join();
+    JSONObject hash = new JSONObject(response);
+    System.out.println("hash");
+    System.out.println(hash);
+    JSONArray distances = hash.getJSONArray("distances").getJSONArray(0);
+    System.out.println("distances");
+    System.out.println(distances);
 
-    // JSONArray distances = new JSONArray(response)["distances"];
+    int nearestPosition = distances.getInt(0);
+    int number = 0;
 
-    // // for each loop
-    // int i = 0;
-    // int nearest_position = distances[0];
-    // for (int number: distances) {
-    //   if (number <= nearest_position) {
-    //     nearest_position = number;
-    //   }
-    //   i = i + 1;
-    // }
+    for(int i = 0 ; i < distances.length() ; i++){
+      number = distances.getInt(i);
+      if (number <= nearestPosition) {
+        nearestPosition = number;
+      }
+      i = i + 1;
+    }
+    System.out.println("nearestPosition");
+    System.out.println(nearestPosition);
 
     // Hospital nearest_hospital = hospitalService.findByGpsPosition(nearest_position);
 
