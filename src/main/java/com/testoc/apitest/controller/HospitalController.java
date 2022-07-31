@@ -79,20 +79,26 @@ public class HospitalController {
     System.out.println("distances");
     System.out.println(distances);
 
-    int nearestPosition = distances.getInt(0);
+    int nearestDistance = distances.getInt(0);
+    int nearestDistancePosition = 0;
     int number = 0;
 
     for(int i = 0 ; i < distances.length() ; i++){
       number = distances.getInt(i);
-      if (number <= nearestPosition) {
-        nearestPosition = number;
+      if (number <= nearestDistance) {
+        nearestDistance = number;
+        nearestDistancePosition = i;
+
       }
       i = i + 1;
     }
-    System.out.println("nearestPosition");
-    System.out.println(nearestPosition);
+    System.out.println("nearestDistance");
+    System.out.println(nearestDistance);
+    System.out.println("nearestDistancePosition");
+    System.out.println(nearestDistancePosition);
 
-    // Hospital nearest_hospital = hospitalService.findByGpsPosition(nearest_position);
+    String nearestHospitalPosition = hospitalsPositions[nearestDistancePosition];
+    Hospital nearestHospital = hospitalService.findByGpsPosition(nearestHospitalPosition);
 
     // Department department = departmentService.findByHospitalAndType();
 
