@@ -7,9 +7,22 @@ class DepartmentServiceTest {
 
   @Test
   void findByHospitalAndType() {
-    Hospital hospital = new Hospital("zaphod", "zaphod@mail.com");
-    User savedUser = bedService.registerUser(user);
-    assertThat(savedUser.getRegistrationDate()).isNotNull();
+    Hospital firstHospital = new Hospital("zaphod", "zaphod@mail.com");
+    Hospital savedFirstHospital = new Hospital("zaphod", "zaphod@mail.com");
+    Hospital secondHospital = new Hospital("zaphod", "zaphod@mail.com");
+    Hospital savedSecondHospital = new Hospital("zaphod", "zaphod@mail.com");
+    String type = "radiology";
+
+    Department firstDepartment = new Department(type, savedFirstHospital);
+    Department secondDepartment = new Department("traumatology",savedSecondHospital);
+    Department thirdDepartment = new Department(type, savedSecondHospital);
+
+    Department savedFirstDepartment = departmentService.saveDepartment(firstDepartment);
+    Department savedSecondDepartment = departmentService.saveDepartment(secondDepartment);
+    Department savedThirdDepartment = departmentService.saveDepartment(thirdDepartment);
+
+
+    assertThat(departmentService.findByHospitalAndType(hospital, type)).isNotNull();
   }
 
 }
