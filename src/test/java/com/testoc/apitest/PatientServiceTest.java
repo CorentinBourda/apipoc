@@ -1,18 +1,18 @@
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class HospitalServiceTest {
+class PatientServiceTest {
 
   @Autowired
-  private HospitalService hospitalService;
+  private PatientService patientService;
 
   @Test
-  void getGps() {
+  void getPatient() {
     User user = new User("zaphod", "zaphod@mail.com");
     User savedUser = registerUseCase.registerUser(user);
     assertThat(savedUser.getRegistrationDate()).isNotNull();
   }
 
-  void findByGpsPosition() {
+  void savePatient() {
     User user = new User("zaphod", "zaphod@mail.com");
     User savedUser = registerUseCase.registerUser(user);
     assertThat(savedUser.getRegistrationDate()).isNotNull();

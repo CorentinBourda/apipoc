@@ -16,30 +16,12 @@ public class HospitalService {
   @Autowired
   private HospitalRepository hospitalRepository;
 
-  public Optional<Hospital> getHospital(final Long id) {
-    return hospitalRepository.findById(id);
-  }
-
-  public Iterable<Hospital> getHospitals() {
-    return hospitalRepository.findAll();
-  }
-
   public String[] getGps() {
     return hospitalRepository.getHospitalsPositions();
   }
 
   public Iterable<Hospital> findByGpsPosition(String gps_position) {
     return hospitalRepository.whereGpsPosition(gps_position);
-  }
-
-
-  public void deleteHospital(final Long id) {
-    hospitalRepository.deleteById(id);
-  }
-
-  public Hospital saveHospital(Hospital hospital) {
-    Hospital savedHospital = hospitalRepository.save(hospital);
-    return savedHospital;
   }
 
 }

@@ -21,7 +21,9 @@ public class HospitalControllerTest {
   @Test
   public void testReserveBed() throws Exception {
 
-    mockMvc.perform(get("/reserve_bed")).andExpect(status().isOk()).andExpect(jsonPath("$[0].firstName", is("Laurent")));
+    mockMvc.perform(get("/reserve_bed"))
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$[0].firstName", is("Laurent")));
 
   }
 

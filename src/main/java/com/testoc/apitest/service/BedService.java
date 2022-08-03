@@ -16,7 +16,7 @@ public class BedService {
   @Autowired
   private BedRepository bedRepository;
 
-  public Iterable<Bed> getBeds() {
-    return bedRepository.findAll();
+  public Optional<Bed> getBed(final Long id) {
+    return bedRepository.findById(id);
   }
 }

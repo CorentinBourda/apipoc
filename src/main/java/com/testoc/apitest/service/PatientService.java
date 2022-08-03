@@ -20,14 +20,6 @@ public class PatientService {
     return patientRepository.findById(id);
   }
 
-  public Iterable<Patient> getPatients() {
-    return patientRepository.findAll();
-  }
-
-  public void deletePatient(final Long id) {
-    patientRepository.deleteById(id);
-  }
-
   public Patient savePatient(Patient patient) {
     Patient savedPatient = patientRepository.save(patient);
     return savedPatient;

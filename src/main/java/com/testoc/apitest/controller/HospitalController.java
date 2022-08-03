@@ -75,7 +75,7 @@ public class HospitalController {
     JSONObject hash = new JSONObject(response);
     System.out.println("hash");
     System.out.println(hash);
-    JSONArray distances = hash.getJSONArray("distances").getJSONArray(0);
+    JSONArray distances = hash.getJSONArray("duration").getJSONArray(0);
     System.out.println("distances");
     System.out.println(distances);
 
