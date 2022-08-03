@@ -7,10 +7,10 @@ class DepartmentServiceTest {
 
   @Test
   void findByHospitalAndType() {
-    Hospital firstHospital = new Hospital("zaphod", "zaphod@mail.com");
-    Hospital savedFirstHospital = new Hospital("zaphod", "zaphod@mail.com");
-    Hospital secondHospital = new Hospital("zaphod", "zaphod@mail.com");
-    Hospital savedSecondHospital = new Hospital("zaphod", "zaphod@mail.com");
+    Hospital firstHospital = new Hospital('CHU de Nantes Sud','47.1410204,-1.5329331', 'chu.paris@gmail.com' );
+    Hospital savedFirstHospital = new Hospital(firstHospital);
+    Hospital secondHospital = new Hospital('CHU de Nantes Sud','47.1410204,-1.5329331', 'chu.paris@gmail.com' );
+    Hospital savedSecondHospital = new Hospital(secondHospital);
     String type = "radiology";
 
     Department firstDepartment = new Department(type, savedFirstHospital);
@@ -22,7 +22,7 @@ class DepartmentServiceTest {
     Department savedThirdDepartment = departmentService.saveDepartment(thirdDepartment);
 
 
-    assertThat(departmentService.findByHospitalAndType(hospital, type)).isNotNull();
+    assertThat(departmentService.findByHospitalAndType(hospital, type)[0] == savedFirstDepartment);
   }
 
 }

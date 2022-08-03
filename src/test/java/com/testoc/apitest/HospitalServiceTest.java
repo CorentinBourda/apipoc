@@ -7,15 +7,21 @@ class HospitalServiceTest {
 
   @Test
   void getGps() {
-    User user = new User("zaphod", "zaphod@mail.com");
-    User savedUser = registerUseCase.registerUser(user);
-    assertThat(savedUser.getRegistrationDate()).isNotNull();
+    Hospital firstHospital = new Hospital('CHU de Nantes Sud','47.1410204,-1.5329331', 'chu.paris@gmail.com' );
+    Hospital savedFirstHospital = new Hospital(firstHospital);
+    Hospital secondHospital = new Hospital('CHU de Nantes Sud','47.1410132,-1.5329554', 'chu.paris@gmail.com' );
+    Hospital savedSecondHospital = new Hospital(secondHospital);
+    String[] gpsPositions = ['47.1410204,-1.5329331', '47.1410132,-1.5329554']
+    assertThat(hospitalService.getGps() == gpsPositions );
   }
 
   void findByGpsPosition() {
-    User user = new User("zaphod", "zaphod@mail.com");
-    User savedUser = registerUseCase.registerUser(user);
-    assertThat(savedUser.getRegistrationDate()).isNotNull();
+    Hospital firstHospital = new Hospital('CHU de Nantes Sud','47.1410204,-1.5329331', 'chu.paris@gmail.com' );
+    Hospital savedFirstHospital = new Hospital(firstHospital);
+    Hospital secondHospital = new Hospital('CHU de Nantes Sud','47.1410204,-1.5329331', 'chu.paris@gmail.com' );
+    Hospital savedSecondHospital = new Hospital(secondHospital);
+
+    assertThat(hospitalService.findByGpsPosition('47.1410204,-1.5329331') == savedFirstHospital);
   }
 
 }
