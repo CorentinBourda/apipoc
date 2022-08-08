@@ -17,8 +17,6 @@ jobs:
     - name: Create the jar file
       run: mvn clean install
     - name: Build the Docker image
-      run: docker build -f Dockerfile -t api-poc-medhead .  
-    - name: Tag the Docker image
-      run: docker build -f Dockerfile -t api-poc-medhead .
+      run: docker build -f Dockerfile -t corentinbourdat/api-poc-medhead .
     - name: Push the Docker image
       run: docker push corentinbourdat/api-poc-medhead      
