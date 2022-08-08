@@ -102,15 +102,16 @@ public class HospitalController {
     String nearestHospitalPosition = hospitalsPositions[nearestDistancePosition];
     Hospital nearestHospital = hospitalService.findByGpsPosition(nearestHospitalPosition);
 
-    // Department department = departmentService.findByHospitalAndType(departmentType);
+    Department department = departmentService.findByHospitalAndType(nearestHospital.id, departmentType);
 
-    // Optional<Bed>  usableBed = bedService.getBed(department.id);
+    Bed usableBed = bedService.getBed(department.id);
 
 
     Reservation reservation = new Reservation();
-    reservation.setBedId(1);
-    reservation.setPatientId(1);
+    reservation.setBedId(usableBed.id);
+    reservation.setPatientId(patient.id);
     reservation.setStartDate(java.time.LocalDateTime.now());
+    Reservation savedReservation = reservationService.saveReservation(reservation);
 
     return reservation;
 

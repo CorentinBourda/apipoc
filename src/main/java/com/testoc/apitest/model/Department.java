@@ -16,10 +16,10 @@ public class Department {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  public Long id;
+  public int id;
 
-  @Column(name="type")
-  public String Type;
+  @Column(name="department_type")
+  public String departmentType;
 
   @Column(name="hospital_id")
   public int hospitalId;

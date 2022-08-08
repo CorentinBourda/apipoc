@@ -16,8 +16,8 @@ public class Bed {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  public int id;
 
   @Column(name="room_id")
-  private int RoomId;
+  public int roomId;
 }
