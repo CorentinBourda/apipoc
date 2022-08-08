@@ -18,7 +18,7 @@ jobs:
       run: mvn clean install
     - name: Build the Docker image
       run: docker build -f Dockerfile -t api-poc-medhead .  
-      - name: Tag the Docker image
-      run: docker build -f Dockerfile -t api-poc-medhead .
-      - name: Push the Docker image
-      run: ocker push corentinbourdat/api-poc-medhead      
+    - name: Tag the Docker image
+    run: docker build -f Dockerfile -t api-poc-medhead .
+    - name: Push the Docker image
+    run: ocker push corentinbourdat/api-poc-medhead      
