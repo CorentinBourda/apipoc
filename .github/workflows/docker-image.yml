@@ -21,4 +21,4 @@ jobs:
     - name: Tag the Docker image
       run: docker build -f Dockerfile -t api-poc-medhead .
     - name: Push the Docker image
-      run: ocker push corentinbourdat/api-poc-medhead      
+      run: docker push corentinbourdat/api-poc-medhead      
