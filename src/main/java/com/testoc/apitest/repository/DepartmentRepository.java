@@ -11,6 +11,8 @@ import com.testoc.apitest.model.Department;
 @Repository
 public interface DepartmentRepository extends CrudRepository<Department, Long>{
 
-  // @Query("select h.gps_position from Hospitals h")
-  // Iterable<Department> ByHospitalAndType();
+  // @Query("FROM Department d WHERE d.departmentType = ?1")
+  // Iterable<Department> byHospitalAndType(String dptType);
+
 }
+// FROM Department d WHERE d.hospitalId = ?1 and d.type = ?2

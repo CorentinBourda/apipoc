@@ -16,9 +16,11 @@ public class Department {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  public Long id;
 
-  // @Type
-  // private Integer type;
+  @Column(name="type")
+  public String Type;
 
+  @Column(name="hospital_id")
+  public int hospitalId;
 }

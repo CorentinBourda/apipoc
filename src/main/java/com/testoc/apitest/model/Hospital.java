@@ -16,17 +16,17 @@ public class Hospital {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  public Long id;
 
   @Column(name="name")
-  private String Name;
+  public String Name;
 
   @Column(name="gps_position")
-  private String gpsPosition;
+  public String gpsPosition;
 
   @Column(name="mail")
-  private String mail;
+  public String mail;
 
-  private String password;
+  public String password;
 
 }

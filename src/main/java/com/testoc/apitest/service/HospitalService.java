@@ -20,8 +20,12 @@ public class HospitalService {
     return hospitalRepository.getHospitalsPositions();
   }
 
-  public Iterable<Hospital> findByGpsPosition(String gps_position) {
-    return hospitalRepository.whereGpsPosition(gps_position);
+  public Hospital findFirstHospital() {
+    return hospitalRepository.findAll().iterator().next();
+  }
+
+  public Hospital findByGpsPosition(String gpsPosition) {
+    return hospitalRepository.whereGpsPosition(gpsPosition).iterator().next();
   }
 
 }

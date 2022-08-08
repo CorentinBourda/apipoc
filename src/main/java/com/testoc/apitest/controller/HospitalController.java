@@ -34,6 +34,9 @@ import java.net.http.HttpResponse;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
+import org.springframework.core.convert.converter.Converter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 @RestController
 public class HospitalController {
 
@@ -45,20 +48,19 @@ public class HospitalController {
   private DepartmentService departmentService;
 
   @GetMapping("/hospital/reserve_bed")
-  public Reservation reserveBed(){
-    // @RequestBody String gps_position, @RequestBody Patient patient
-    // patient = patientService.savePatient(patient);
+  public Reservation reserveBed(@RequestBody Patient patient, @RequestBody String gpsPosition, @RequestBody String departmentType){
+    patient = patientService.savePatient(patient);
 
     String[]  hospitalsPositions = hospitalService.getGps();
-    System.out.println("coucou");
     System.out.println(hospitalsPositions);
     String stringGpsPositions =  String.join(";", hospitalsPositions);
+    stringGpsPositions = gpsPosition + stringGpsPositions;
     // String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
     System.out.println("coucou2");
     System.out.println(stringGpsPositions);
 
 
-    String oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
+    String oc_token = System.getenv("MAPBOX_TOKEN");
 
     String mapboxUrl = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/walking/%s?sources=0&annotations=distance,duration&access_token=%s",stringGpsPositions,oc_token);
     System.out.println("coucou3");
@@ -100,17 +102,23 @@ public class HospitalController {
     String nearestHospitalPosition = hospitalsPositions[nearestDistancePosition];
     Hospital nearestHospital = hospitalService.findByGpsPosition(nearestHospitalPosition);
 
-    // Department department = departmentService.findByHospitalAndType();
+    // Department department = departmentService.findByHospitalAndType(departmentType);
 
-    // Iterable<Bed>  usable_beds = bedService.getBed(department);
+    // Optional<Bed>  usableBed = bedService.getBed(department.id);
 
 
     Reservation reservation = new Reservation();
-    // reservation.setBedId(bed.ID);
-    // reservation.setPatientId(patient.ID);
-    // reservation.setStartDate(java.time.LocalTime.now());
+    reservation.setBedId(1);
+    reservation.setPatientId(1);
+    reservation.setStartDate(java.time.LocalDateTime.now());
 
     return reservation;
+
+   }
+  @GetMapping("/hospital/get_hospital")
+  public Hospital get_hospital(){
+    Hospital hospital = hospitalService.findFirstHospital();
+    return hospital;
 
    }
 }

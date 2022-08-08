@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.springframework.core.convert.converter.Converter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import lombok.Data;
 
@@ -18,5 +21,16 @@ public class Reservation {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(name="bed_id")
+  private int BedId;
+
+  @Column(name="patient_id")
+  private int PatientId;
+
+  @Column(name="startDate",columnDefinition="TIMESTAMP")
+  private LocalDateTime startDate;
+
+  @Column(name="endDate",columnDefinition="TIMESTAMP")
+  private LocalDateTime endDate;
 
 }

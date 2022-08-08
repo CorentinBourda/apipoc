@@ -20,7 +20,7 @@ public class DepartmentService {
     return departmentRepository.findAll();
   }
 
-  // public Iterable<Department> findByHospitalAndType() {
-  //   return departmentRepository.ByHospitalAndType();
+  // public Department findByHospitalAndType(String dptType) {
+  //   return departmentRepository.byHospitalAndType(dptType).iterator().next();
   // }
 }
