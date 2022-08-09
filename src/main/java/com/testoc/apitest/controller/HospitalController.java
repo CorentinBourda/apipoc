@@ -77,7 +77,7 @@ public class HospitalController {
     JSONObject hash = new JSONObject(response);
     System.out.println("hash");
     System.out.println(hash);
-    JSONArray distances = hash.getJSONArray("duration").getJSONArray(0);
+    JSONArray distances = hash.getJSONArray("durations").getJSONArray(0);
     System.out.println("distances");
     System.out.println(distances);
 
@@ -106,7 +106,6 @@ public class HospitalController {
 
     Bed usableBed = bedService.getBed(department.id);
 
-
     Reservation reservation = new Reservation();
     reservation.setBedId(usableBed.id);
     reservation.setPatientId(patient.id);
@@ -116,6 +115,7 @@ public class HospitalController {
     return reservation;
 
    }
+
   @GetMapping("/hospital/get_hospital")
   public Hospital get_hospital(){
     Hospital hospital = hospitalService.findFirstHospital();
