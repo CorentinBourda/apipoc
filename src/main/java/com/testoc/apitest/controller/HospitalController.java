@@ -48,7 +48,7 @@ public class HospitalController {
   private DepartmentService departmentService;
 
   @GetMapping("/hospital/reserve_bed")
-  public Reservation reserveBed(@RequestBody Patient patient, @RequestBody String gpsPosition, @RequestBody String departmentType){
+  public Reservation reserveBed(@RequestBody Patient patient, @PathVariable("gps_position") String gpsPosition, @PathVariable("department_type") String departmentType){
     patient = patientService.savePatient(patient);
 
     String[]  hospitalsPositions = hospitalService.getGps();
@@ -117,7 +117,7 @@ public class HospitalController {
    }
 
   @GetMapping("/hospital/get_hospital")
-  public Hospital get_hospital(){
+  public Hospital get_hospital(@PathVariable("gps_position") String gpsPosition){
     Hospital hospital = hospitalService.findFirstHospital();
     return hospital;
 
