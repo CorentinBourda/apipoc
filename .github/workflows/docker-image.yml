@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: check that tests are OK
     - name: test
       run: mvn test
     - uses: actions/checkout@v3
