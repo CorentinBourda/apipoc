@@ -16,10 +16,6 @@ public class DepartmentService {
   @Autowired
   private DepartmentRepository departmentRepository;
 
-  public Iterable<Department> getDepartments() {
-    return departmentRepository.findAll();
-  }
-
   public Department findByHospitalAndType(int hospitalId, String dptType) {
     return departmentRepository.byHospitalAndType(hospitalId, dptType).iterator().next();
   }

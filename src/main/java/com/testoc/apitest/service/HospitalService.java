@@ -20,12 +20,7 @@ public class HospitalService {
     return hospitalRepository.getHospitalsPositions();
   }
 
-  public Hospital findFirstHospital() {
-    return hospitalRepository.findAll().iterator().next();
-  }
-
   public Hospital findByGpsPosition(String gpsPosition) {
     return hospitalRepository.whereGpsPosition(gpsPosition).iterator().next();
   }
-
 }

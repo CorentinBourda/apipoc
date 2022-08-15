@@ -16,10 +16,6 @@ public class PatientService {
   @Autowired
   private PatientRepository patientRepository;
 
-  public Optional<Patient> getPatient(final Long id) {
-    return patientRepository.findById(id);
-  }
-
   public Patient savePatient(Patient patient) {
     Patient savedPatient = patientRepository.save(patient);
     return savedPatient;

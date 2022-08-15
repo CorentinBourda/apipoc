@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,7 +49,7 @@ public class HospitalController {
   private DepartmentService departmentService;
 
   @GetMapping("/hospital/reserve_bed")
-  public Reservation reserveBed(@RequestBody Patient patient, @PathVariable("gps_position") String gpsPosition, @PathVariable("department_type") String departmentType){
+  public Reservation reserveBed(@RequestBody Patient patient, @RequestParam("gps_position") String gpsPosition, @RequestParam("department_type") String departmentType){
     patient = patientService.savePatient(patient);
 
     String[]  hospitalsPositions = hospitalService.getGps();
@@ -116,10 +117,17 @@ public class HospitalController {
 
    }
 
-  @GetMapping("/hospital/get_hospital")
-  public Hospital get_hospital(@PathVariable("gps_position") String gpsPosition){
-    Hospital hospital = hospitalService.findFirstHospital();
-    return hospital;
+  // @GetMapping("/hospital/get_hospital")
+  // public Hospital get_hospital(@RequestBody Hospital patient, @RequestParam("gps_position") String gpsPosition, @RequestParam("department_type") String departmentType){
+  //   System.out.println("gps_position");
+  //   System.out.println(gpsPosition);
+  //   System.out.println("department_type");
+  //   System.out.println(departmentType);
+  //   System.out.println("patient");
+  //   System.out.println(patient);
 
-   }
+  //   Hospital hospital = hospitalService.findFirstHospital();
+  //   return hospital;
+
+  //  }
 }

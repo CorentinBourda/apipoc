@@ -16,17 +16,17 @@ public class ReservationService {
   @Autowired
   private ReservationRepository reservationRepository;
 
-  public Optional<Reservation> getReservation(final Long id) {
-    return reservationRepository.findById(id);
-  }
+  // public Optional<Reservation> getReservation(final Long id) {
+  //   return reservationRepository.findById(id);
+  // }
 
-  public Iterable<Reservation> getReservations() {
-    return reservationRepository.findAll();
-  }
+  // public Iterable<Reservation> getReservations() {
+  //   return reservationRepository.findAll();
+  // }
 
-  public void deleteReservation(final Long id) {
-    reservationRepository.deleteById(id);
-  }
+  // public void deleteReservation(final Long id) {
+  //   reservationRepository.deleteById(id);
+  // }
 
   public Reservation saveReservation(Reservation reservation) {
     Reservation savedReservation= reservationRepository.save(reservation);

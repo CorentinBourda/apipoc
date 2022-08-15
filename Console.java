@@ -17,13 +17,11 @@ public class Console {
     // String  hospitalsPositions = "47.2108967,-1.5533024; 47.2001896,-1.4284585";
     // hospitalsPositions = hospitalsPosition + hospitalsPositions;
     // System.out.println(hospitalsPositions);
-    // String[] names = {"John", "Jade", "Love", "Allen"};
     // System.out.println("coucou");
     // String position = hospitalsPositions[0];
     // System.out.println(position);
-    System.out.println(
-        String.format("The current shell is: %s.", System.getenv("MAPBOX_TOKEN"))
-    );
+    int interger = 1;
+    System.out.println(1 == interger );
   }
 
 }

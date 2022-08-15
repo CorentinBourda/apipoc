@@ -27,6 +27,4 @@ public class Hospital {
   @Column(name="mail")
   public String mail;
 
-  public String password;
-
 }
