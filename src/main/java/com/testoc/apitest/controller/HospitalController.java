@@ -109,7 +109,7 @@ public class HospitalController {
 
     Reservation reservation = new Reservation();
     reservation.setBedId(usableBed.id);
-    reservation.setPatientId(patient.id);
+    reservation.setPatientId(patient.getId());
     reservation.setStartDate(java.time.LocalDateTime.now());
     Reservation savedReservation = reservationService.saveReservation(reservation);
 

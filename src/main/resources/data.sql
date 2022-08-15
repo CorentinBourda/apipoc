@@ -30,3 +30,11 @@ INSERT INTO departments (id, hospital_id, type)
                  (2, 2, 'réanimation'),
                  (3, 2, 'radiologie'),
                  (4, 1, 'réanimation');
+
+DROP TABLE IF EXISTS PATIENTS;
+
+create table PATIENTS (
+    ID int not null IDENTITY(1,1) primary key,
+    LAST_NAME varchar(100) not null,
+    FIRST_NAME varchar(100) not null
+);
