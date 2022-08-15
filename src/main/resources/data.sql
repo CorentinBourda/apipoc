@@ -38,3 +38,60 @@ create table PATIENTS (
     LAST_NAME varchar(100) not null,
     FIRST_NAME varchar(100) not null
 );
+
+DROP TABLE IF EXISTS ROOMS;
+
+create table ROOMS (
+    ID int not null primary key,
+    DEPARTMENT_ID int,
+    FOREIGN KEY (DEPARTMENT_ID) REFERENCES Departments(ID)
+);
+
+
+INSERT INTO rooms (id, department_id)
+  VALUES (1, 1),
+                 (2, 1),
+                 (3, 2),
+                 (4, 2),
+                 (5, 3),
+                 (6, 3),
+                 (7, 4),
+                 (8, 4),
+                 (9, 4);
+
+DROP TABLE IF EXISTS BEDS;
+
+create table BEDS (
+    ID int not null primary key,
+    ROOM_ID int,
+    FOREIGN KEY (ROOM_ID) REFERENCES Rooms(ID)
+);
+
+INSERT INTO beds (id, room_id)
+  VALUES (1, 1),
+                 (2, 1),
+                 (3, 2),
+                 (4, 2),
+                 (5, 3),
+                 (6, 3),
+                 (7, 4),
+                 (8, 4),
+                 (9, 5),
+                 (10, 5),
+                 (11, 6),
+                 (12, 6),
+                 (13, 7),
+                 (14, 7),
+                 (15, 8),
+                 (16, 8),
+                 (17, 9);
+
+DROP TABLE IF EXISTS RESERVATIONS;
+
+create table RESERVATIONS (
+    ID int not null IDENTITY(1,1) primary key,
+    BED_ID int,
+    PATIENT_ID int,
+    START_DATE date,
+    END_DATE date
+);

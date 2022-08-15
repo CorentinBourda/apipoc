@@ -26,17 +26,31 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 class BedServiceTest {
 
-  @MockBean
+  @Autowired
   private BedRepository bedRepository;
 
-  @InjectMocks
+  @Autowired
   private BedService bedService;
 
 
   @Test
   void getBed() {
     int firstBedId = 1;
-    int secondBedId = 2;
+    int secondBedId = 9;
+
+    int firstDepartmentId = 1;
+    int secondDepartmentId = 3;
+
+    int firstFoundBedId = bedService.getBed(firstDepartmentId).getId();
+    boolean firstAssertion = (firstFoundBedId == firstBedId);
+
+    assert firstAssertion;
+
+    int secondFoundBedId = bedService.getBed(secondDepartmentId).getId();
+    boolean secondAssertion = (secondFoundBedId == secondBedId);
+    System.out.println("nearestDistance");
+    System.out.println(secondFoundBedId);
+    assert secondAssertion;
 
   }
 
