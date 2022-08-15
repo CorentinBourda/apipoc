@@ -19,11 +19,9 @@
 //   public MockMvc mockMvc;
 
 //   @Test
-//   public void testReserveBed() throws Exception {
+//   public void testGetEmployees() throws Exception {
 
-//     mockMvc.perform(get("/hospital/get_hospital?gps_position=47.2108967,-1.5533024&department_type=radiologie"))
-//            .andExpect(status().isOk())
-//            .andExpect(jsonPath("$[0].firstName", is("Laurent")));
+//     mockMvc.perform(get("/hospital/reserve_bed")).andExpect(status().isOk()).andExpect(jsonPath("$[0].firstName", is("Laurent")));
 
 //   }
 
