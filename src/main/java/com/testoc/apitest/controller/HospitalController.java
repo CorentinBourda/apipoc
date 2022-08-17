@@ -43,25 +43,34 @@ public class HospitalController {
 
   @Autowired
   private HospitalService hospitalService;
+
+  @Autowired
   private PatientService patientService;
+
+  @Autowired
   private ReservationService reservationService;
+
+  @Autowired
   private BedService bedService;
+
+  @Autowired
   private DepartmentService departmentService;
 
   @GetMapping("/hospital/reserve_bed")
   public Reservation reserveBed(@RequestBody Patient patient, @RequestParam("gps_position") String gpsPosition, @RequestParam("department_type") String departmentType){
-    patient = patientService.savePatient(patient);
+
+    Patient savedPatient = patientService.savePatient(patient);
 
     String[]  hospitalsPositions = hospitalService.getGps();
     System.out.println(hospitalsPositions);
     String stringGpsPositions =  String.join(";", hospitalsPositions);
-    stringGpsPositions = gpsPosition + stringGpsPositions;
+    stringGpsPositions = gpsPosition + ";" + stringGpsPositions;
     // String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
     System.out.println("coucou2");
     System.out.println(stringGpsPositions);
 
 
-    String oc_token = System.getenv("MAPBOX_TOKEN");
+    String oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
 
     String mapboxUrl = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/walking/%s?sources=0&annotations=distance,duration&access_token=%s",stringGpsPositions,oc_token);
     System.out.println("coucou3");
@@ -77,6 +86,7 @@ public class HospitalController {
                          .join();
     JSONObject hash = new JSONObject(response);
     System.out.println("hash");
+    System.out.println(oc_token);
     System.out.println(hash);
     JSONArray distances = hash.getJSONArray("durations").getJSONArray(0);
     System.out.println("distances");
@@ -88,7 +98,7 @@ public class HospitalController {
 
     for(int i = 0 ; i < distances.length() ; i++){
       number = distances.getInt(i);
-      if (number <= nearestDistance) {
+      if (number <= nearestDistance && number != 0) {
         nearestDistance = number;
         nearestDistancePosition = i;
 
@@ -102,14 +112,17 @@ public class HospitalController {
 
     String nearestHospitalPosition = hospitalsPositions[nearestDistancePosition];
     Hospital nearestHospital = hospitalService.findByGpsPosition(nearestHospitalPosition);
-
+    System.out.println("nearestHospital");
+    System.out.println(nearestHospital.id);
+    System.out.println("departmentType");
+    System.out.println(departmentType);
     Department department = departmentService.findByHospitalAndType(nearestHospital.id, departmentType);
 
     Bed usableBed = bedService.getBed(department.id);
 
     Reservation reservation = new Reservation();
     reservation.setBedId(usableBed.id);
-    reservation.setPatientId(patient.getId());
+    reservation.setPatientId(savedPatient.getId());
     reservation.setStartDate(java.time.LocalDateTime.now());
     Reservation savedReservation = reservationService.saveReservation(reservation);
 

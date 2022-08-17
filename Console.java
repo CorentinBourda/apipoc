@@ -13,15 +13,8 @@ import java.net.http.HttpResponse;
 public class Console {
 
   public static void main(String[] args) throws Exception {
-    // String  hospitalsPosition = "test";
-    // String  hospitalsPositions = "47.2108967,-1.5533024; 47.2001896,-1.4284585";
-    // hospitalsPositions = hospitalsPosition + hospitalsPositions;
-    // System.out.println(hospitalsPositions);
-    // System.out.println("coucou");
-    // String position = hospitalsPositions[0];
-    // System.out.println(position);
-    int interger = 1;
-    System.out.println(1 == interger );
+    String oc_token = System.getenv("MAPBOX_TOKEN");
+    System.out.println(oc_token);
   }
 
 }
