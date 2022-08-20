@@ -43,15 +43,15 @@ class HospitalServiceTest {
   void testGetGps(){
 
 
-    String[] gpsPositions = {"47.2108967,-1.5533024","47.1410204,-1.5329331"};
+    String[] gpsPositions = {"-122.418563,37.751659","-122.422969,37.75529"};
     assert gpsPositions[0].equals(hospitalService.getGps()[0]);
     assert gpsPositions[1].equals(hospitalService.getGps()[1]);
   }
 
   @Test
   void testFindByGpsPosition(){
-    int hospitalId = 3;
-    String gpsPosition = "47.175831,-1.624034";
+    int hospitalId = 1;
+    String gpsPosition = "-122.418563,37.751659";
     int foundId = hospitalService.findByGpsPosition(gpsPosition).getId();
     boolean assertion = (hospitalId == foundId);
     assert assertion;
