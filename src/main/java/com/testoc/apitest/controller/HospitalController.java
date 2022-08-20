@@ -63,6 +63,7 @@ public class HospitalController {
 
     String[]  hospitalsPositions = hospitalService.getGps();
     System.out.println(hospitalsPositions);
+    System.out.println(gpsPosition);
     String stringGpsPositions =  String.join(";", hospitalsPositions);
     stringGpsPositions = gpsPosition + ";" + stringGpsPositions;
     // String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
@@ -72,7 +73,7 @@ public class HospitalController {
 
     String oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
 
-    String mapboxUrl = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/walking/%s?sources=0&annotations=distance,duration&access_token=%s",stringGpsPositions,oc_token);
+    String mapboxUrl = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/driving/%s?sources=0&annotations=duration&access_token=%s",stringGpsPositions,oc_token);
     System.out.println("coucou3");
     System.out.println(mapboxUrl);
 

@@ -15,8 +15,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: test
       run: mvn test
-
-  build:
+# mettre une étape de push en plus de celle de build
+  ci:
 
     runs-on: ubuntu-latest
 
