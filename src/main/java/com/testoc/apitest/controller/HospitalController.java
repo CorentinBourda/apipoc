@@ -109,7 +109,7 @@ public class HospitalController {
     Department department = departmentService.findByHospitalAndType(nearestHospital.id, departmentType);
 
     Bed usableBed = bedService.getBed(department.id);
-    String ocToken = System.getenv("HOSTNAME");
+    String hostName = System.getenv("HOSTNAME");
 
     Reservation reservation = new Reservation();
     reservation.setBedId(usableBed.id);
