@@ -70,9 +70,10 @@ public class HospitalController {
     stringGpsPositions = gpsPosition + ";" + stringGpsPositions;
     // String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
 
-    String oc_token = System.getenv("MAPBOX_TOKEN");
+    // String ocToken = System.getenv("MAPBOX_TOKEN");
+    String ocToken = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
 
-    String mapboxUrl = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/driving/%s?sources=0&annotations=duration&access_token=%s",stringGpsPositions,oc_token);
+    String mapboxUrl = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/driving/%s?sources=0&annotations=duration&access_token=%s",stringGpsPositions,ocToken);
 
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder(
@@ -84,7 +85,7 @@ public class HospitalController {
                          .join();
     JSONObject hash = new JSONObject(response);
     System.out.println("hash");
-    System.out.println(oc_token);
+    System.out.println(ocToken);
     System.out.println(hash);
     JSONArray distances = hash.getJSONArray("durations").getJSONArray(0);
 
@@ -109,7 +110,7 @@ public class HospitalController {
     Department department = departmentService.findByHospitalAndType(nearestHospital.id, departmentType);
 
     Bed usableBed = bedService.getBed(department.id);
-    String hostName = System.getenv("HOSTNAME");
+    String hostName = "machine-poc-medhead-production-2";
 
     Reservation reservation = new Reservation();
     reservation.setBedId(usableBed.id);
@@ -122,17 +123,11 @@ public class HospitalController {
 
    }
 
-  // @GetMapping("/hospital/get_hospital")
-  // public Hospital get_hospital(@RequestBody Hospital patient, @RequestParam("gps_position") String gpsPosition, @RequestParam("department_type") String departmentType){
-  //   System.out.println("gps_position");
-  //   System.out.println(gpsPosition);
-  //   System.out.println("department_type");
-  //   System.out.println(departmentType);
-  //   System.out.println("patient");
-  //   System.out.println(patient);
+  @GetMapping("/hospital/get_hospital")
+  public Hospital get_hospital(){
 
-  //   Hospital hospital = hospitalService.findFirstHospital();
-  //   return hospital;
+    Hospital hospital = hospitalService.findFirstHospital();
+    return hospital;
 
-  //  }
+   }
 }

@@ -86,5 +86,6 @@ create table RESERVATIONS (
     BED_ID int,
     PATIENT_ID int,
     START_DATE date,
+    HOST_NAME varchar(100),
     END_DATE date
 );
