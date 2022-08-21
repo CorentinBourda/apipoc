@@ -70,8 +70,7 @@ public class HospitalController {
     stringGpsPositions = gpsPosition + ";" + stringGpsPositions;
     // String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
 
-    // String ocToken = System.getenv("MAPBOX_TOKEN");
-    String ocToken = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
+    String ocToken = System.getenv("MAPBOX_TOKEN");
 
     String mapboxUrl = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/driving/%s?sources=0&annotations=duration&access_token=%s",stringGpsPositions,ocToken);
 
@@ -110,7 +109,7 @@ public class HospitalController {
     Department department = departmentService.findByHospitalAndType(nearestHospital.id, departmentType);
 
     Bed usableBed = bedService.getBed(department.id);
-    String hostName = "machine-poc-medhead-production-2";
+    String ocToken = System.getenv("HOSTNAME");
 
     Reservation reservation = new Reservation();
     reservation.setBedId(usableBed.id);
