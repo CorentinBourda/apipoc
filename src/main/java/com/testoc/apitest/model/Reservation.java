@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import org.springframework.core.convert.converter.Converter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.net.InetAddress;
 
 import lombok.Data;
 
@@ -27,10 +28,13 @@ public class Reservation {
   @Column(name="patient_id")
   private int PatientId;
 
-  @Column(name="startDate",columnDefinition="TIMESTAMP")
+  @Column(name="start_date",columnDefinition="TIMESTAMP")
   private LocalDateTime startDate;
 
-  @Column(name="endDate",columnDefinition="TIMESTAMP")
+  @Column(name="end_date",columnDefinition="TIMESTAMP")
   private LocalDateTime endDate;
+
+  @Column(name="host_name")
+  private String hostName;
 
 }

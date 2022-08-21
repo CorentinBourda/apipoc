@@ -23,6 +23,7 @@ import com.testoc.apitest.service.ReservationService;
 import com.testoc.apitest.service.BedService;
 import com.testoc.apitest.service.DepartmentService;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -31,6 +32,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.InetAddress;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -67,15 +69,10 @@ public class HospitalController {
     String stringGpsPositions =  String.join(";", hospitalsPositions);
     stringGpsPositions = gpsPosition + ";" + stringGpsPositions;
     // String gps_positions = "-122.418563,37.751659;-122.422969,37.75529;-122.426904,37.75961";
-    System.out.println("coucou2");
-    System.out.println(stringGpsPositions);
 
-
-    String oc_token = "pk.eyJ1IjoiY29yZW50aW5ib3VyZGF0IiwiYSI6ImNsNXRpN2IwejA1enczamxhdmhmOWFoMmwifQ.zDWBYja68KwzSv5i6dGz-g";
+    String oc_token = System.getenv("MAPBOX_TOKEN");
 
     String mapboxUrl = String.format("https://api.mapbox.com/directions-matrix/v1/mapbox/driving/%s?sources=0&annotations=duration&access_token=%s",stringGpsPositions,oc_token);
-    System.out.println("coucou3");
-    System.out.println(mapboxUrl);
 
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder(
@@ -90,8 +87,6 @@ public class HospitalController {
     System.out.println(oc_token);
     System.out.println(hash);
     JSONArray distances = hash.getJSONArray("durations").getJSONArray(0);
-    System.out.println("distances");
-    System.out.println(distances);
 
     int nearestDistance = distances.getInt(0);
     int nearestDistancePosition = 0;
@@ -106,25 +101,21 @@ public class HospitalController {
       }
       i = i + 1;
     }
-    System.out.println("nearestDistance");
-    System.out.println(nearestDistance);
-    System.out.println("nearestDistancePosition");
-    System.out.println(nearestDistancePosition);
 
     String nearestHospitalPosition = hospitalsPositions[nearestDistancePosition];
     Hospital nearestHospital = hospitalService.findByGpsPosition(nearestHospitalPosition);
-    System.out.println("nearestHospital");
     System.out.println(nearestHospital.id);
-    System.out.println("departmentType");
     System.out.println(departmentType);
     Department department = departmentService.findByHospitalAndType(nearestHospital.id, departmentType);
 
     Bed usableBed = bedService.getBed(department.id);
+    String hostName = System.getenv("HOSTNAME");
 
     Reservation reservation = new Reservation();
     reservation.setBedId(usableBed.id);
     reservation.setPatientId(savedPatient.getId());
     reservation.setStartDate(java.time.LocalDateTime.now());
+    reservation.setHostName(hostName);
     Reservation savedReservation = reservationService.saveReservation(reservation);
 
     return reservation;
