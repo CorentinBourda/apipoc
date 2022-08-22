@@ -30,3 +30,4 @@ jobs:
       run: docker build -f Dockerfile -t corentinbourdat/api-poc-medhead .
     - name: Push the Docker image
       run: docker push corentinbourdat/api-poc-medhead
+
